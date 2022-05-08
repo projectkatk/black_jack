@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 80%;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;   
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    height: 200px;
+    position: absolute;
+    top: 40px;
+}
+
+.yourScore {
+    color: #000;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 120px;
+    padding: 20px;
+    margin: 5px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: #000;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+    background-color: #424242;
+}
+
+.hit, .stand {
+    width: 100px;
+    height: 30px;
+    margin: 20px;
+}
+
+footer {
+    position: absolute;
+    bottom: 30px;  
+    font-size: 0.7rem;  
+}
