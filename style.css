@@ -23,6 +23,17 @@ h1 {
     top: 40px;
 }
 
+.github { 
+    background-color: #f5f5f5;
+    text-decoration: none;
+    font-size: 0.8rem;
+    padding: 5px 20px;
+    border-radius: 5px;
+    width: 150px;
+    margin: auto;
+   
+}
+
 .yourScore {
     color: #000;
     font-weight: bold;
@@ -50,7 +61,8 @@ button {
     transition: all 0.2s ease;
 }
 
-button:active {
+button:active,
+.github:active {
     transform: scale(0.95);
     background-color: #424242;
 }
@@ -63,6 +75,16 @@ button:active {
 
 footer {
     position: absolute;
-    bottom: 30px;  
-    font-size: 0.7rem;  
+    bottom: 70px;  
 }
+
+footer span {
+    font-size: 0.7rem;
+}
+
+footer a {
+    display: block;
+    margin: 20px;
+    font-size: 0.7rem;
+}
+
