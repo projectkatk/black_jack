@@ -100,6 +100,8 @@ var calculateBasketSum = function() {
 calculateBasketSum();
 
 // ==== end of calculate function ======= //
+
+
 var busted = function (cardSum) {
     announcement.textContent = 'You Bust! Play again...';
     yourScore.textContent = 'Your Score: ' + cardSum;
