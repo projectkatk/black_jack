@@ -42,6 +42,8 @@ var initialTwoCards = function() {
 }
 
 initialTwoCards();
+// end of initial two cards distribution //
+
 
 // calculate the total accumulated score of the player
 var calculateBasketSum = function() {
@@ -53,67 +55,70 @@ var calculateBasketSum = function() {
     var newBasket = cardBasket.map(el => {
         return el;
     });
+
+    // this is to count Aces in the array
+    var countAces = 0;
+
     // proceed if not every element is a number
     if(!isNumber) {
        for(let i = 0; i < newBasket.length; i++) {
            var el = newBasket[i];
            if(el === 'k' || el === 'j' || el === 'q') {
-               newBasket.splice(i, 1, 10);
+               newBasket.splice(i, 1, 10); 
+              
            } else if (el === 'ace') {
-                newBasket.splice(i, 1, 11);               
+               newBasket.splice(i, 1, 11);
+               countAces++;
            }
-        }        
-    }
+        }
+    }    
     //this is the total sum of the generated cards
     var cardSum = newBasket.reduce((prev, curr) =>  prev + curr, 0);
 
+    // case of blackjack
+    if(cardSum === 21) {
+        blackjack(cardSum);
+    }   
+    // when sum of array is more than 21 and contains more than 1 Aces
+    while(countAces > 0 && cardSum > 21) {
+        cardSum -= 10;
+        countAces--;
+        if(cardSum === 21) {
+            blackjack(cardSum);
+        }
+    }
+    //case of sum of array being less than 21
     if(cardSum < 21) {
         yourScore.textContent = 'Your Score: ' + cardSum;
-    }
-    if(cardSum === 21) {
-        announcement.textContent = "Wow! Black Jack!!! You are so lucky!";
-        yourScore.textContent = 'Your Score: ' + cardSum;
-        disableBtns();
-        setTimeout(() => {
-            location.reload();
-        }, 5000);
-    } else if(cardSum > 21) { //if the sum of elements is over 21 and contains 'ace'
-        if(cardBasket.includes('ace')) {
-            cardSum -= 10;
-            if(cardSum === 21) {
-                announcement.textContent = "Wow! Black Jack!!! You are so lucky!";
-                yourScore.textContent = 'Your Score: ' + cardSum;
-                disableBtns();
-                setTimeout(() => {
-                    location.reload();
-                }, 5000);
-            }
-            if(cardSum < 21) {
-                yourScore.textContent = 'Your Score: ' + cardSum;
-                return;
-            } else if (cardSum > 21) {
-                console.log(cardSum)
-                yourScore.textContent = 'Your Score: ' + cardSum;
-                announcement.textContent = 'You Bust! Play again...';
-                disableBtns();
-                setTimeout(() => {
-                    location.reload();
-                }, 5000);
-            }           
-        }
-        else {
-            announcement.textContent = 'You Bust! Play again...';
-            yourScore.textContent = 'Your Score: ' + cardSum;
-            disableBtns();
-            setTimeout(() => {
-                location.reload();
-            }, 5000);
-        }    
-    } 
+    }    
+    // case of sum or array being more than 21
+    if(cardSum > 21) {
+        busted(cardSum);
+    }   
     playerScore = cardSum;
 }
-
 calculateBasketSum();
+
+// ==== end of calculate function ======= //
+var busted = function (cardSum) {
+    announcement.textContent = 'You Bust! Play again...';
+    yourScore.textContent = 'Your Score: ' + cardSum;
+    disableBtns();
+    setTimeout(() => {
+        location.reload();
+    }, 5000);
+}
+
+var blackjack = function (cardSum) {
+    announcement.textContent = "Wow! Black Jack!!! You are so lucky!";
+        yourScore.textContent = 'Your Score: ' + cardSum;
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+        btn.disabled = true;
+}
+
+
 
 var getAnotherCard = function() {
     var randomCardTypeNew = types[Math.floor(Math.random() * 4)];
@@ -136,6 +141,7 @@ var disableBtns = function() {
     }
 }
 
+// hit or stand button click event
 hit.addEventListener('click', () => getAnotherCard());
 stand.addEventListener('click', () => {
     disableBtns();
